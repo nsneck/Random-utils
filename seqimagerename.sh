@@ -31,7 +31,7 @@ case $arg in
 esac
 done
 
-if [[ "$HELP" == true ]] || ! [[ -n "$INDIR" ]] || ! [[ -n "$OUTDIR" ]]; then
+if [[ "$HELP" == true ]] || [[ -z "$INDIR" ]] || [[ -z "$OUTDIR" ]]; then
     printf "Required arguments:
     -i / --in               The input directory where the images to be renamed are.
     -o / --out              The output directory where renamed images will be saved.
@@ -52,7 +52,7 @@ if ! [[ "${OUTDIR: -1}" == "/" ]]; then
 fi
 
 i=1
-for file in $INDIR*; do
+for file in "$INDIR"*; do
     if [[ -f "$file" ]]; then
         fileinfo=$(file -b "$file")
         case "$fileinfo" in
